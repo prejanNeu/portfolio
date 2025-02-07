@@ -3,270 +3,468 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prejan Neupane | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Prejan Neupane - Backend Developer Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Fira Code', monospace;
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #3b82f6;
+            --secondary-color: #60a5fa;
+            --background-color: #1e293b;
+            --text-color: #f8fafc;
+        }
+
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background: #0d1117;
-            color: #e6edf3;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background-color: #161b22;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        header h1 {
-            font-size: 2rem;
-            color: #9f7aea;
-            animation: bounce 2s infinite;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        nav ul li {
-            font-size: 1.1rem;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #e6edf3;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #9f7aea;
-            transform: scale(1.1);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(145deg, #161b22, #21262d);
-            animation: slideIn 2s ease-in-out;
-        }
-
-        .hero h2 {
-            font-size: 3.5rem;
-            margin: 20px 0;
-            background: linear-gradient(90deg, #9f7aea, #63b3ed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textGlow 2s infinite alternate;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .hero img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-top: 20px;
-        }
-
-        .about, .skills, .projects, .contact {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        .about h2, .skills h2, .projects h2, .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #9f7aea;
-        }
-
-        .skills ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .skills li {
-            background: linear-gradient(145deg, #21262d, #161b22);
-            border-radius: 10px;
-            padding: 10px 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-        }
-
-        .skills li:hover {
-            transform: scale(1.1);
-        }
-
-        .projects .project {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .projects .project-card {
-            background: linear-gradient(145deg, #21262d, #161b22);
-            border-radius: 10px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .projects .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-        }
-
-        .contact a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            border: 2px solid #9f7aea;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #9f7aea;
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .contact a:hover {
-            background-color: #9f7aea;
-            color: #0d1117;
+        header {
+            background-color: var(--background-color);
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
         }
 
-        .contact a.github {
+        .theme-toggle {
+            cursor: pointer;
+            padding: 0.5rem;
+            border: none;
+            background: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(rgba(37,99,235,0.1), rgba(37,99,235,0.05));
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            animation: slideUp 1s ease-out forwards;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 1rem auto;
+        }
+
+        .education-section {
+            background-color: var(--background-color);
+            padding: 4rem 2rem;
+        }
+
+        .education-card {
+            background-color: var(--background-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .education-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .certification-card {
+            background-color: var(--background-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .skills-grid, .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .project-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .project-tech {
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            margin: 0.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 1rem;
+            font-size: 0.9rem;
         }
 
         footer {
+            background-color: var(--background-color);
+            padding: 2rem;
             text-align: center;
-            padding: 20px;
-            background-color: #161b22;
-            color: #8b949e;
+            margin-top: 4rem;
+            border-top: 1px solid var(--primary-color);
         }
 
-        footer p {
-            margin: 0;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
         }
 
-        .disappearing-text {
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
             font-size: 1.5rem;
-            font-weight: bold;
-            color: #9f7aea;
-            animation: disappear 4s infinite;
+            transition: all 0.3s;
         }
 
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .social-links a:hover {
+            transform: scale(1.1);
+            background-color: var(--secondary-color);
         }
 
-        @keyframes textGlow {
-            from { text-shadow: 0 0 10px #9f7aea, 0 0 20px #63b3ed; }
-            to { text-shadow: 0 0 20px #63b3ed, 0 0 30px #9f7aea; }
-        }
-
-        @keyframes disappear {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @media (max-width: 768px) {
+            .nav-links a {
+                display: none;
+            }
+            
+            .nav-links .theme-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Prejan Neupane</h1>
         <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <h2>Prejan Neupane</h2>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#education">Education</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
         </nav>
     </header>
 
-    <div class="hero">
-        <h2>Welcome to My Portfolio</h2>
-        <p>Hi, I'm Prejan Neupane, a CSIT student and passionate programmer with a keen interest in cybersecurity.</p>
-        <p class="disappearing-text">Exploring Technology, One Line of Code at a Time</p>
-        <img src="https://media.licdn.com/dms/image/v2/D4D03AQHXjL2jO4fe1g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1725434830284?e=1739404800&v=beta&t=ecYCynWdSW-15h_dH_ez0bLSBUm5DLP6t0E6TLeakHI" alt="Prejan Neupane">
-    </div>
-
-    <section id="about" class="about">
-        <h2>About Me</h2>
-        <p>BSc CSIT student at Patan Multiple Campus with expertise in programming, web development, and cybersecurity.</p>
+    <section class="hero">
+        <h1>Prejan Neupane</h1>
+        <p>Backend Developer</p>
+        <p>Passionate about building robust and scalable backend solutions with expertise in multiple programming languages and frameworks.</p>
+        <a href="#" class="cta-button" download>Download CV</a>
     </section>
 
-    <section id="skills" class="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>Python</li>
-            <li>JavaScript</li>
-            <li>HTML & CSS</li>
-            <li>Linux</li>
-            <li>Django</li>
-            <li>Cybersecurity</li>
-        </ul>
+    <section id="education" class="education-section">
+        <h2 class="section-title">Education & Certifications</h2>
+        <div class="education-card">
+            <h3>Bachelor of Science in Computer Science and Information Technology</h3>
+            <p>Patan Multiple Campus</p>
+            <p>Current Student</p>
+        </div>
+        <div class="certification-card">
+            <h3>Certifications</h3>
+            <p>CS50: Introduction to Programming with Python - Harvard University</p>
+        </div>
     </section>
 
-    <section id="projects" class="projects">
-        <h2>Projects</h2>
-        <div class="project">
-            <a href="#">
-            <div class="project-card">
-                <h3>ePasal</h3>
-                <p>An e-commerce platform featuring secure authentication and product management.</p>
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>C/C++</h3>
             </div>
-            </a>
-            <div class="project-card">
-                <h3>Tic Tac Toe AI</h3>
-                <p>An intelligent AI game challenging players with strategic moves.</p>
+            <div class="skill-card">
+                <h3>C#</h3>
             </div>
-            <div class="project-card">
-                <h3>School Management System</h3>
-                <p>A Django-based app to streamline school operations.</p>
+            <div class="skill-card">
+                <h3>.NET</h3>
+            </div>
+            <div class="skill-card">
+                <h3>Python</h3>
+            </div>
+            <div class="skill-card">
+                <h3>Django</h3>
+            </div>
+            <div class="skill-card">
+                <h3>Data Structures</h3>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <h2>Contact Me</h2>
-        <a href="mailto:neupaneprejan2018@gmail.com">Email Me</a>
-        <a href="https://github.com/prejanNeu" class="github" target="_blank">
-            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub Icon" style="width:20px; height:20px;"> GitHub
-        </a>
-        <a href="https://linkedin.com/in/prejan-neupane-461b01263" target="_blank">LinkedIn</a>
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-content">
+                    <h3 class="project-title">ePasal - E-Commerce Platform</h3>
+                    <p>A fully functional e-commerce platform with user authentication, product management, shopping cart, and secure checkout features.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">HTML/CSS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3 class="project-title">ChatApp</h3>
+                    <p>Real-time chat application enabling instant messaging and communication between users.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">.NET</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3 class="project-title">Tic Tac Toe AI</h3>
+                    <p>An intelligent Tic Tac Toe game implementing the Minimax algorithm for optimal computer moves.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">AI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <footer>
-        <p>&copy; 2024 Prejan Neupane. All Rights Reserved.</p>
+    <footer id="contact">
+        <h2>Let's Connect</h2>
+        <div class="social-links">
+            <a href="https://github.com/prejanNeu" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/prejan-neupane-461b01263/" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:neupaneprejan2018@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
     </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('.theme-toggle i');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+       // Observe all cards and sections
+       document.querySelectorAll('.skill-card, .project-card, .education-card, .certification-card').forEach((el) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            observer.observe(el);
+        });
+
+        // Add scroll behavior for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
