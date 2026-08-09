@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
 import { Metadata } from "next";
+import CopyCodeInitializer from "@/components/CopyCodeInitializer";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -48,6 +49,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
 
   return (
     <div className="blog-post-container">
+      <CopyCodeInitializer />
       <article className="blog-post">
         <header className="post-header">
           <Link href="/blog" className="back-link">
@@ -77,7 +79,31 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           className="blog-content"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
+
+        {/* Recommendation Links */}
+        {(post.prevPost || post.nextPost) && (
+          <nav className="post-nav" aria-label="Post navigation">
+            {post.prevPost ? (
+              <Link href={`/blog/${post.prevPost.slug}`} className="post-nav-card prev">
+                <span className="post-nav-label">← Previous Article</span>
+                <span className="post-nav-title">{post.prevPost.title}</span>
+              </Link>
+            ) : (
+              <div className="post-nav-card empty" />
+            )}
+            
+            {post.nextPost ? (
+              <Link href={`/blog/${post.nextPost.slug}`} className="post-nav-card next">
+                <span className="post-nav-label">Next Article →</span>
+                <span className="post-nav-title">{post.nextPost.title}</span>
+              </Link>
+            ) : (
+              <div className="post-nav-card empty" />
+            )}
+          </nav>
+        )}
       </article>
     </div>
   );
 }
+

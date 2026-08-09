@@ -28,6 +28,7 @@ export default function CustomCursor() {
       return;
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHidden(false);
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -73,13 +74,11 @@ export default function CustomCursor() {
       ringCoords.current.y += (targetY - ringCoords.current.y) * 0.15;
 
       if (dotRef.current) {
-        dotRef.current.style.setProperty("--cursor-x", `${dotCoords.current.x}px`);
-        dotRef.current.style.setProperty("--cursor-y", `${dotCoords.current.y}px`);
+        dotRef.current.style.transform = `translate3d(${dotCoords.current.x}px, ${dotCoords.current.y}px, 0) translate(-50%, -50%)`;
       }
 
       if (ringRef.current) {
-        ringRef.current.style.setProperty("--ring-x", `${ringCoords.current.x}px`);
-        ringRef.current.style.setProperty("--ring-y", `${ringCoords.current.y}px`);
+        ringRef.current.style.transform = `translate3d(${ringCoords.current.x}px, ${ringCoords.current.y}px, 0) translate(-50%, -50%)`;
       }
 
       requestRef.current = requestAnimationFrame(animateCursor);
