@@ -8,7 +8,9 @@ interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const post = await getPostBySlug(resolvedParams.slug);
 
@@ -84,16 +86,22 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         {(post.prevPost || post.nextPost) && (
           <nav className="post-nav" aria-label="Post navigation">
             {post.prevPost ? (
-              <Link href={`/blog/${post.prevPost.slug}`} className="post-nav-card prev">
+              <Link
+                href={`/blog/${post.prevPost.slug}`}
+                className="post-nav-card prev"
+              >
                 <span className="post-nav-label">← Previous Article</span>
                 <span className="post-nav-title">{post.prevPost.title}</span>
               </Link>
             ) : (
               <div className="post-nav-card empty" />
             )}
-            
+
             {post.nextPost ? (
-              <Link href={`/blog/${post.nextPost.slug}`} className="post-nav-card next">
+              <Link
+                href={`/blog/${post.nextPost.slug}`}
+                className="post-nav-card next"
+              >
                 <span className="post-nav-label">Next Article →</span>
                 <span className="post-nav-title">{post.nextPost.title}</span>
               </Link>
@@ -106,4 +114,3 @@ export default async function BlogPostPage({ params }: PostPageProps) {
     </div>
   );
 }
-
