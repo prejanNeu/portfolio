@@ -1,0 +1,84 @@
+.eduTimeline {
+  margin-top: 4rem;
+}
+
+.eduItem {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 3rem;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.eduItem:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.eduDate {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--amber);
+  font-weight: 500;
+  padding-top: 0.25rem;
+}
+
+.eduBody h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.eduTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.eduTitleRow h3 {
+  margin-bottom: 0;
+}
+
+.eduCertBtn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.eduCertBtn:hover {
+  background-color: var(--amber);
+  color: #fff;
+}
+
+.eduInstitution {
+  font-size: 0.9rem;
+  color: var(--text-faint);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.eduDesc {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .eduItem {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem 0;
+  }
+}

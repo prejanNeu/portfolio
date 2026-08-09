@@ -1,0 +1,132 @@
+.projectsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.projCard {
+  background: var(--bg-darker);
+  padding: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
+}
+
+.projCard::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.projCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+  border-color: var(--border-strong);
+}
+
+.projCard:hover::before {
+  transform: scaleX(1);
+}
+
+.projNum {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.projTitle {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.projDesc {
+  font-size: 0.92rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  font-weight: 300;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.projTech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.75rem;
+}
+
+.projTag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--bg-color);
+  color: var(--text-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.projLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-color);
+  letter-spacing: 0.04em;
+  margin-top: auto;
+}
+
+.projLink svg {
+  transition: transform 0.2s ease;
+}
+
+.projLink:hover {
+  color: var(--amber);
+}
+
+.projLink:hover svg {
+  transform: translate(3px, -3px);
+}
+
+@media (max-width: 1024px) {
+  .projectsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .projectsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .projectsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}

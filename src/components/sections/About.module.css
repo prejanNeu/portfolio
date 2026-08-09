@@ -1,0 +1,116 @@
+.aboutInner {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.aboutLeft {
+  padding-right: 2rem;
+}
+
+.aboutText {
+  font-size: 1.08rem;
+  color: var(--text-light);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.aboutText strong {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.skillsBlock {
+  margin-top: 3.5rem;
+}
+
+.skillGroup {
+  margin-bottom: 2.25rem;
+}
+
+.skillGroupTitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--amber);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.skillChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chip {
+  padding: 0.4rem 1.1rem;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-light);
+  border-radius: 100px;
+  transition: all 0.2s ease;
+}
+
+.chip:hover {
+  background: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
+}
+
+.aboutAside {
+  position: sticky;
+  top: 120px;
+}
+
+.asideCard {
+  background: var(--bg-darker);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+}
+
+.asideCard p {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.9;
+  color: var(--text-light);
+}
+
+.asideCard .highlight {
+  color: var(--amber);
+  font-weight: 500;
+}
+
+.asideLabel {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .aboutInner {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .aboutLeft {
+    padding-right: 0;
+  }
+
+  .aboutAside {
+    position: static;
+  }
+}

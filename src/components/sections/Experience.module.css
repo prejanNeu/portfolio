@@ -1,0 +1,80 @@
+.expTimeline {
+  margin-top: 4rem;
+}
+
+.expItem {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 3rem;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.expItem:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.expMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.expCompany {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.expDate {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--amber);
+  font-weight: 500;
+}
+
+.expDuration {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.roleEntry {
+  margin-bottom: 1.5rem;
+}
+
+.roleEntry:last-child {
+  margin-bottom: 0;
+}
+
+.roleTitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.25rem;
+}
+
+.roleDates {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  margin-bottom: 0.75rem;
+}
+
+.roleDesc {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .expItem {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem 0;
+  }
+}
