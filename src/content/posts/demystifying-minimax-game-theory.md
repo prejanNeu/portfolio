@@ -17,11 +17,12 @@ Minimax is a backtracking decision rule used in game theory for two-player, turn
 1. **Maximizer (Max)**: Aims to maximize their score (get the highest possible value).
 2. **Minimizer (Min)**: Aims to minimize the Maximizer's score (give Max the lowest possible value).
 
-The algorithm works by recursively exploring all possible future moves from the current state down to the end of the game (the terminal nodes). 
+The algorithm works by recursively exploring all possible future moves from the current state down to the end of the game (the terminal nodes).
 
 ## Visualizing the Game Tree
 
 Imagine a simple tree of possibilities. Starting from the current turn:
+
 1. Max selects a move that leads to a set of possible responses.
 2. Min chooses the best response to minimize Max's outcome.
 3. The process repeats down to the final win, loss, or tie.
@@ -35,9 +36,10 @@ Imagine a simple tree of possibilities. Starting from the current turn:
 ```
 
 At the terminal nodes, we evaluate the board state:
-- **Win for Max**: $+10$
-- **Loss for Max (Win for Min)**: $-10$
-- **Tie**: $0$
+
+- **Win for Max**: +1
+- **Loss for Max (Win for Min)**: -1
+- **Tie**: 0
 
 The values are then backed up the tree. Max picks the branch with the highest score, while Min picks the branch with the lowest score.
 
@@ -46,33 +48,16 @@ The values are then backed up the tree. Max picks the branch with the highest sc
 Here is a simplified Python structure showing how Minimax handles board searches:
 
 ```python
-def minimax(board, depth, is_maximizing):
-    # Base case: Check if the game is over
-    score = evaluate_board(board)
-    
-    if score == 10:  # Maximizer won
-        return score - depth  # Subtract depth to favor faster wins
-    if score == -10: # Minimizer won
-        return score + depth  # Add depth to delay losses
-    if not has_moves_left(board):
-        return 0
-
-    if is_maximizing:
-        best_score = -float('inf')
-        for move in get_available_moves(board):
-            make_move(board, move, 'O') # Maximizer is 'O'
-            score = minimax(board, depth + 1, False)
-            undo_move(board, move)
-            best_score = max(best_score, score)
-        return best_score
+def minimax(self,board):
+    if self.terminal(board): # if already is in terminal state
+        return
     else:
-        best_score = float('inf')
-        for move in get_available_moves(board):
-            make_move(board, move, 'X') # Minimizer is 'X'
-            score = minimax(board, depth + 1, True)
-            undo_move(board, move)
-            best_score = min(best_score, score)
-        return best_score
+        if self.player(board) == 1:
+            value, move = self.max_value(board) # 
+            return move
+        elif self.player(board)==-1:
+            value, move = self.min_value(board)
+            return move
 ```
 
 ### Depth Discounting

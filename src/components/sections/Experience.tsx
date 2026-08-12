@@ -1,42 +1,52 @@
+import SectionHeader from "@/components/SectionHeader";
 import styles from "./Experience.module.css";
+
+const roles = [
+  {
+    title: "Junior Django Developer",
+    period: "Dec 2025 – Jun 2026",
+    description:
+      "Worked on database schema improvements, authentication modules, and REST APIs with Django REST Framework. Focused on query optimization and production-ready endpoints.",
+  },
+  {
+    title: "Django Developer Intern",
+    period: "Jun 2025 – Dec 2025",
+    description:
+      "Built and debugged Django applications, handled migrations, and shipped client features alongside senior engineers.",
+  },
+];
 
 export default function Experience() {
   return (
-    <section id="experience" className="experience">
-      <div className="experience-inner">
-        <div className="section-label">
-          <span className="num">02 / EXPERIENCE</span>
-        </div>
-        <h2>
-          Professional<br />
-          <em>Work</em>
-        </h2>
+    <section id="experience" className="section" aria-labelledby="work-heading">
+      <div className="container">
+        <SectionHeader
+          eyebrow="Work"
+          title="Selected experience"
+        />
 
-        <div className={styles.expTimeline}>
-          <div className={styles.expItem}>
-            <div className={styles.expMeta}>
-              <div className={styles.expCompany}>Intellisoft Nepal</div>
-              <div className={styles.expDate}>Jun 2025 – Jun 2026</div>
-              <div className={styles.expDuration}>1 Year Total</div>
+        <article className={styles.entry}>
+          <header className={styles.entryHeader}>
+            <div>
+              <h3 className={styles.company}>Intellisoft Nepal</h3>
+              <p className={styles.duration}>Jun 2025 – Jun 2026 · 1 year</p>
             </div>
-            <div className={styles.expBody}>
-              <div className={styles.roleEntry}>
-                <div className={styles.roleTitle}>Junior Django Developer</div>
-                <div className={styles.roleDates}>Dec 2025 – Jun 2026 (6 mos)</div>
-                <p className={styles.roleDesc}>
-                  Promoted to a junior role to oversee database schema optimizations, implement authentication modules, and build secure RESTful interfaces using Django REST Framework. Developed clean, documented, and production-ready APIs that reduced load times by streamlining SQL queries.
-                </p>
+          </header>
+
+          <div className={styles.roles}>
+            {roles.map((role) => (
+              <div key={role.title} className={styles.role}>
+                <div className={styles.roleHeader}>
+                  <h4 className={styles.roleTitle}>{role.title}</h4>
+                  <time className={styles.rolePeriod} dateTime={role.period}>
+                    {role.period}
+                  </time>
+                </div>
+                <p className={styles.roleDesc}>{role.description}</p>
               </div>
-              <div className={styles.roleEntry} style={{ marginTop: "2rem" }}>
-                <div className={styles.roleTitle}>Django Developer Intern</div>
-                <div className={styles.roleDates}>Jun 2025 – Dec 2025 (6 mos)</div>
-                <p className={styles.roleDesc}>
-                  Learned the ropes of enterprise-grade Python software design. Helped design, build, and debug core Django apps, handled model migrations, and collaborated closely with senior engineers to implement client features.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
+        </article>
       </div>
     </section>
   );

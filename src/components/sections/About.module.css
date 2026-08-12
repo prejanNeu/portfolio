@@ -1,116 +1,95 @@
-.aboutInner {
+.grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 5rem;
-  align-items: start;
+  grid-template-columns: 1fr 16rem;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
-.aboutLeft {
-  padding-right: 2rem;
+.main {
+  max-width: 40rem;
 }
 
-.aboutText {
-  font-size: 1.08rem;
-  color: var(--text-light);
-  line-height: 1.8;
-  font-weight: 300;
-  margin-bottom: 1.5rem;
+.text {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1rem;
 }
 
-.aboutText strong {
-  color: var(--text-color);
-  font-weight: 500;
+.text:last-child {
+  margin-bottom: 0;
 }
 
-.skillsBlock {
-  margin-top: 3.5rem;
+.aside {
+  padding: 1.5rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  height: fit-content;
 }
 
-.skillGroup {
-  margin-bottom: 2.25rem;
-}
-
-.skillGroupTitle {
+.asideTitle {
+  font-size: 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--amber);
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin-bottom: 0.9rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
+  color: var(--text-tertiary);
+  margin-bottom: 1rem;
 }
 
-.skillChips {
+.focusList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.focusList li {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.focusList li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--text-tertiary);
+}
+
+.skills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  padding-top: clamp(2rem, 4vw, 2.5rem);
+  border-top: 1px solid var(--border);
+}
+
+.skillLabel {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.875rem;
+}
+
+.skillList {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
-.chip {
-  padding: 0.4rem 1.1rem;
-  background: transparent;
-  border: 1px solid var(--border-strong);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-light);
-  border-radius: 100px;
-  transition: all 0.2s ease;
-}
-
-.chip:hover {
-  background: var(--text-color);
-  color: var(--bg-color);
-  border-color: var(--text-color);
-}
-
-.aboutAside {
-  position: sticky;
-  top: 120px;
-}
-
-.asideCard {
-  background: var(--bg-darker);
-  border: 1px solid var(--border);
-  padding: 2.5rem;
-  border-radius: 6px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
-}
-
-.asideCard p {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  line-height: 1.9;
-  color: var(--text-light);
-}
-
-.asideCard .highlight {
-  color: var(--amber);
-  font-weight: 500;
-}
-
-.asideLabel {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-faint);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0.5rem;
-}
-
-@media (max-width: 1024px) {
-  .aboutInner {
+@media (max-width: 900px) {
+  .grid {
     grid-template-columns: 1fr;
-    gap: 4rem;
   }
 
-  .aboutLeft {
-    padding-right: 0;
-  }
-
-  .aboutAside {
-    position: static;
+  .skills {
+    grid-template-columns: 1fr;
   }
 }

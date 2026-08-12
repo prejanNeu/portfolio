@@ -5,37 +5,33 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 
+const navLinks = [
+  { name: "About", hash: "#about" },
+  { name: "Work", hash: "#experience" },
+  { name: "Projects", hash: "#projects" },
+  { name: "Blog", path: "/blog" },
+  { name: "Contact", hash: "#contact" },
+];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsOpen(false);
-  }, [pathname]);
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
-  const navLinks = [
-    { name: "About", hash: "#about" },
-    { name: "Projects", hash: "#projects" },
-    { name: "Journey", hash: "#education" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contact", hash: "#contact" },
-  ];
-
-  const getLinkUrl = (item: { name: string; hash?: string; path?: string }) => {
+  const getLinkUrl = (item: { hash?: string; path?: string }) => {
     if (item.path) return item.path;
     if (pathname === "/") return item.hash || "/";
     return `/${item.hash}`;
@@ -43,68 +39,74 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`nav ${isScrolled ? "scrolled" : ""}`}>
-        <Link href="/" className="logo">
-          P<span>.</span>Neupane
-        </Link>
+      <header className={`nav ${isScrolled ? "scrolled" : ""}`}>
+        <div className="nav-inner">
+          <Link href="/" className="logo" aria-label="Prejan Neupane — Home">
+            Prejan Neupane
+          </Link>
 
-        {/* Desktop links */}
-        <div className="nav-right">
-          <ul className="nav-links">
-            {navLinks.map((item) => (
-              <li key={item.name}>
-                <Link href={getLinkUrl(item)}>
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="nav-divider" />
+          <div className="nav-right">
+            <ul className="nav-links" role="list">
+              {navLinks.map((item) => {
+                const href = getLinkUrl(item);
+                const isActive = item.path
+                  ? pathname.startsWith(item.path)
+                  : false;
+                return (
+                  <li key={item.name}>
+                    <Link href={href} aria-current={isActive ? "page" : undefined}>
+                      {item.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="nav-actions">
+              <ThemeToggle />
+              <a href="mailto:prejan@prejanneupane.com.np" className="btn btn-primary">
+                Hire me
+              </a>
+            </div>
+          </div>
+
+          <button
+            className={`hamburger ${isOpen ? "open" : ""}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </header>
+
+      <nav
+        className={`mobile-menu ${isOpen ? "open" : ""}`}
+        aria-hidden={!isOpen}
+        aria-label="Mobile navigation"
+      >
+        <ul className="mobile-menu-links" role="list">
+          {navLinks.map((item) => (
+            <li key={item.name}>
+              <Link href={getLinkUrl(item)} onClick={() => setIsOpen(false)}>
+                {item.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mobile-menu-actions">
           <ThemeToggle />
           <a
             href="mailto:prejan@prejanneupane.com.np"
-            className="nav-cta btn-hire"
+            className="btn btn-primary"
+            style={{ width: "100%" }}
           >
-            Hire Me ↗
+            Hire me
           </a>
         </div>
-
-        {/* Mobile menu trigger */}
-        <button
-          className={`hamburger ${isOpen ? "open" : ""}`}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
       </nav>
-
-      {/* Mobile Drawer Overlay */}
-      <div className={`drawer ${isOpen ? "open" : ""}`}>
-        <div className="drawer-inner">
-          <ul className="drawer-links">
-            {navLinks.map((item) => (
-              <li key={item.name}>
-                <Link href={getLinkUrl(item)} onClick={() => setIsOpen(false)}>
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="drawer-actions">
-            <ThemeToggle />
-            <a
-              href="mailto:prejan@prejanneupane.com.np"
-              className="btn-primary"
-              style={{ width: "100%", justifyContent: "center", marginTop: "1rem" }}
-            >
-              Hire Me ↗
-            </a>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

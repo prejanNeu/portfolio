@@ -1,5 +1,21 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/blog";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Articles on Django backend development, API design, machine learning, and web engineering by Prejan Neupane.",
+  alternates: {
+    canonical: "https://prejanneupane.com.np/blog",
+  },
+  openGraph: {
+    title: "Blog | Prejan Neupane",
+    description:
+      "Articles on Django backend development, API design, and web engineering.",
+    url: "https://prejanneupane.com.np/blog",
+  },
+};
 
 interface PageProps {
   searchParams: Promise<{ tag?: string }>;
@@ -20,82 +36,84 @@ export default async function BlogIndex({ searchParams }: PageProps) {
 
   return (
     <div className="blog-index-container">
-      <section className="blog-index">
-        <div className="blog-header">
+      <div className="container blog-index">
+        <header className="blog-header">
           <Link href="/" className="back-link">
-            ← Back to Portfolio
+            ← Home
           </Link>
-          <h1 className="blog-title">
-            Writing & <em>Thoughts</em>
-          </h1>
+          <h1 className="blog-title">Blog</h1>
           <p className="blog-subtitle">
-            Exploring Django backend optimization, machine learning architectures, and modern web systems.
+            Notes on Django, APIs, and things I&apos;m learning along the way.
           </p>
 
-          <div className="tags-container">
-            <Link
-              href="/blog"
-              className={`tag-filter ${!activeTag ? "active" : ""}`}
-            >
-              All Posts
-            </Link>
-            {allTags.map((tag) => (
+          {allTags.length > 0 && (
+            <nav className="tags-container" aria-label="Filter by tag">
               <Link
-                key={tag}
-                href={`/blog?tag=${tag}`}
-                className={`tag-filter ${activeTag === tag ? "active" : ""}`}
+                href="/blog"
+                className={`tag-filter ${!activeTag ? "active" : ""}`}
               >
-                #{tag}
+                All
               </Link>
-            ))}
-          </div>
-        </div>
+              {allTags.map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/blog?tag=${tag}`}
+                  className={`tag-filter ${activeTag === tag ? "active" : ""}`}
+                >
+                  {tag}
+                </Link>
+              ))}
+            </nav>
+          )}
+        </header>
 
         <div className="posts-list">
           {filteredPosts.length === 0 ? (
             <div className="no-posts">
-              <h3>No articles found</h3>
-              <p>Try clearing your filters to see other publications.</p>
-              <Link href="/blog" className="btn-primary" style={{ marginTop: "1rem" }}>
-                Clear Filters
+              <h3>No posts found</h3>
+              <p>Try removing the filter to see all articles.</p>
+              <Link href="/blog" className="btn btn-primary" style={{ marginTop: "1rem" }}>
+                Show all
               </Link>
             </div>
           ) : (
             filteredPosts.map((post) => (
               <article key={post.slug} className="post-card">
                 <div className="post-meta">
-                  <span className="post-date">
+                  <time dateTime={post.date}>
                     {new Date(post.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
-                  </span>
-                  <span className="post-read-time">{post.readTime}</span>
+                  </time>
+                  <span>{post.readTime}</span>
                 </div>
                 <h2 className="post-card-title">
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h2>
                 <p className="post-card-desc">{post.description}</p>
-                <div className="post-tags">
-                  {post.tags.map((t) => (
-                    <Link
-                      key={t}
-                      href={`/blog?tag=${t}`}
-                      className="post-tag-item"
-                    >
-                      #{t}
-                    </Link>
-                  ))}
-                </div>
+                {post.tags.length > 0 && (
+                  <div className="post-tags">
+                    {post.tags.map((t) => (
+                      <Link
+                        key={t}
+                        href={`/blog?tag=${t}`}
+                        className="post-tag-item"
+                      >
+                        {t}
+                      </Link>
+                    ))}
+                  </div>
+                )}
                 <Link href={`/blog/${post.slug}`} className="read-more-link">
-                  Read Article →
+                  Read article →
                 </Link>
               </article>
             ))
           )}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

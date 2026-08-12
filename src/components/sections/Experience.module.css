@@ -1,80 +1,65 @@
-.expTimeline {
-  margin-top: 4rem;
+.entry {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
 }
 
-.expItem {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 3rem;
-  padding: 3rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.expItem:last-child {
+.entryHeader {
+  padding: 1.5rem clamp(1.25rem, 3vw, 2rem);
   border-bottom: 1px solid var(--border);
+  background: var(--bg-subtle);
 }
 
-.expMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.expCompany {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-color);
-}
-
-.expDate {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--amber);
-  font-weight: 500;
-}
-
-.expDuration {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-faint);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.roleEntry {
-  margin-bottom: 1.5rem;
-}
-
-.roleEntry:last-child {
-  margin-bottom: 0;
-}
-
-.roleTitle {
-  font-size: 1.15rem;
+.company {
+  font-size: 1.125rem;
   font-weight: 600;
-  color: var(--text-color);
   margin-bottom: 0.25rem;
 }
 
-.roleDates {
+.duration {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-faint);
-  margin-bottom: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+}
+
+.role {
+  padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.25rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--border);
+}
+
+.role:last-child {
+  border-bottom: none;
+}
+
+.roleHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.625rem;
+}
+
+.roleTitle {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.rolePeriod {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
 }
 
 .roleDesc {
-  font-size: 0.95rem;
-  color: var(--text-light);
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
   line-height: 1.7;
-  font-weight: 300;
-}
-
-@media (max-width: 768px) {
-  .expItem {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 2rem 0;
-  }
+  max-width: 52rem;
 }

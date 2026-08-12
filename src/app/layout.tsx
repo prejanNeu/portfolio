@@ -1,43 +1,80 @@
-import type { Metadata } from "next";
-import { Outfit, Playfair_Display, Fira_Code } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
 
-const outfit = Outfit({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-serif",
-  weight: ["400", "700", "900"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const firaCode = Fira_Code({
-  subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-mono-src",
   weight: ["400", "500"],
   display: "swap",
 });
 
+const siteUrl = "https://prejanneupane.com.np";
+
 export const metadata: Metadata = {
-  title: "Prejan Neupane | Django & Full-stack Developer",
-  description: "Personal portfolio of Prejan Neupane — CS graduate & Django developer from Nepal. Crafting clean, scalable backend systems and beautiful frontend designs.",
-  keywords: ["Prejan Neupane", "Django Developer", "Fullstack Developer", "Nepal", "BSc CSIT", "Web Development", "Python Developer"],
-  authors: [{ name: "Prejan Neupane" }],
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Prejan Neupane — Django & Full-stack Developer",
+    template: "%s | Prejan Neupane",
+  },
+  description:
+    "Portfolio of Prejan Neupane, a Django and full-stack developer from Nepal. Building scalable APIs, backend systems, and modern web applications.",
+  keywords: [
+    "Prejan Neupane",
+    "Django Developer",
+    "Full-stack Developer",
+    "Python Developer",
+    "Nepal",
+    "Web Developer",
+    "Backend Developer",
+  ],
+  authors: [{ name: "Prejan Neupane", url: siteUrl }],
+  creator: "Prejan Neupane",
   openGraph: {
-    title: "Prejan Neupane | Django & Full-stack Developer",
-    description: "Personal portfolio of Prejan Neupane — CS graduate & Django developer from Nepal.",
     type: "website",
     locale: "en_US",
+    url: siteUrl,
+    siteName: "Prejan Neupane",
+    title: "Prejan Neupane — Django & Full-stack Developer",
+    description:
+      "Django developer from Nepal building scalable backend systems and clean web interfaces.",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Prejan Neupane — Django & Full-stack Developer",
+    description:
+      "Django developer from Nepal building scalable backend systems and clean web interfaces.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+    },
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
 };
 
 export default function RootLayout({
@@ -48,42 +85,52 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Prejan Neupane",
-    "url": "https://prejanneupane.com.np",
-    "jobTitle": "Django Developer & Full-stack Architect",
-    "alumniOf": {
-      "@type": "EducationalOrganization",
-      "name": "Patan Multiple Campus, Tribhuvan University"
+    name: "Prejan Neupane",
+    url: siteUrl,
+    jobTitle: "Django & Full-stack Developer",
+    email: "prejan@prejanneupane.com.np",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Kathmandu",
+      addressCountry: "NP",
     },
-    "knowsAbout": ["Django", "Python", "React", "Next.js", "Machine Learning", "Full-stack Web Development"],
-    "sameAs": [
+    alumniOf: {
+      "@type": "EducationalOrganization",
+      name: "Patan Multiple Campus, Tribhuvan University",
+    },
+    knowsAbout: [
+      "Django",
+      "Python",
+      "React",
+      "Next.js",
+      "PostgreSQL",
+      "REST APIs",
+      "Machine Learning",
+    ],
+    sameAs: [
       "https://github.com/prejanNeu",
-      "https://www.linkedin.com/in/prejan-neupane-461b01263/"
-    ]
+      "https://www.linkedin.com/in/prejan-neupane-461b01263/",
+    ],
   };
 
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      data-scroll-behavior="smooth"
-      className={`${outfit.variable} ${playfair.variable} ${firaCode.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        {/* Anti-FOUC Blocking script */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
-                  const savedTheme = localStorage.getItem('theme');
-                  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  const activeTheme = savedTheme || systemTheme;
-                  document.documentElement.setAttribute('data-theme', activeTheme);
-                  document.documentElement.style.colorScheme = activeTheme;
-                } catch (e) {
-                  console.error(e);
-                }
+                  var saved = localStorage.getItem('theme');
+                  var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  var theme = saved || system;
+                  document.documentElement.setAttribute('data-theme', theme);
+                  document.documentElement.style.colorScheme = theme;
+                } catch (e) {}
               })();
             `,
           }}
@@ -94,12 +141,13 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <CustomCursor />
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
       </body>
     </html>
   );
 }
-

@@ -20,16 +20,25 @@ export async function generateMetadata({
     };
   }
 
+  const url = `https://prejanneupane.com.np/blog/${resolvedParams.slug}`;
+
   return {
-    title: `${post.title} | Prejan Neupane Blog`,
+    title: post.title,
     description: post.description,
+    alternates: { canonical: url },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
+      url,
       publishedTime: post.date,
       authors: ["Prejan Neupane"],
       tags: post.tags,
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.description,
     },
   };
 }
